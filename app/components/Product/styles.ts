@@ -9,11 +9,13 @@ export const Container = styled.article`
 
   border-radius: ${({ theme }) => theme.radius.default};
 
+  border: 1px solid transparent;
   transition: .15s ease-in-out;
 
   &:hover {
     cursor: pointer;
     background: #111216;
+    border-color: #323541;
   }
 `;
 

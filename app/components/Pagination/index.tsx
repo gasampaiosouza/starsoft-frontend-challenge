@@ -1,4 +1,4 @@
-import { ShowMoreButton } from '@/app/styles';
+import { ShowMoreButton } from '@/styles';
 import { Container, ProgressInner, ProgressOuter } from './styles';
 
 const Pagination = () => {
@@ -13,7 +13,7 @@ const Pagination = () => {
 const ProgressBar = () => {
   return (
     <ProgressOuter>
-      <ProgressInner progress={50} />
+      <ProgressInner $progress={50} />
     </ProgressOuter>
   );
 };

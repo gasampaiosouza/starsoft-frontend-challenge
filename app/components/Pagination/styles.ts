@@ -23,7 +23,7 @@ export const ProgressOuter = styled.div`
   position: relative;
 `;
 
-export const ProgressInner = styled.div<{ progress: number }>`
+export const ProgressInner = styled.div<{ $progress: number }>`
   border-radius: ${({ theme }) => theme.radius.default};
   background: ${({ theme }) => theme.colors.primary};
 
@@ -34,5 +34,5 @@ export const ProgressInner = styled.div<{ progress: number }>`
   transition: .5s ease-in-out;
 
   height: 100%;
-  width: ${({ progress }) => `${progress}%`};
+  width: ${({ $progress }) => `${$progress}%`};
 `;

@@ -41,14 +41,14 @@ export const CartContainer = styled(motion.div)`
   }
 `;
 
-export const Overlay = styled.div<{ show: 1 | 0 }>`
+export const Overlay = styled.div<{ $show: 1 | 0 }>`
   position: fixed;
   inset: 0;
   background: rgba(17, 18, 22, 0.5);
   z-index: 11;
 
-  opacity: ${(props) => (props.show ? 1 : 0)};
-  visibility: ${(props) => (props.show ? 'visible' : 'hidden')};
+  opacity: ${(props) => (props.$show ? 1 : 0)};
+  visibility: ${(props) => (props.$show ? 'visible' : 'hidden')};
 
   backdrop-filter: blur(2px);
 

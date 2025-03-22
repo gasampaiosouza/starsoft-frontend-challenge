@@ -50,7 +50,7 @@ const Cart = () => {
         <span>0</span>
       </OpenCartButton>
 
-      <Overlay show={isOpen ? 1 : 0} onClick={toggleCart} />
+      <Overlay $show={isOpen ? 1 : 0} onClick={toggleCart} />
 
       <CartContainer
         initial={{ x: '100%' }}
