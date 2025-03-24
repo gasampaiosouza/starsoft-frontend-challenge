@@ -17,13 +17,19 @@ import {
 import BagIcon from 'public/bag.svg';
 import ArrowLeft from 'public/arrow-left.svg';
 import EtherumLogo from 'public/etherum-logo.svg';
-import { mocked_products } from '../ProductList';
 import CartProduct from './CartProduct';
 import { DefaultButton } from '@/styles/global';
+import { useAppSelector } from '@/lib/hooks';
+import { IProduct } from '@/types/products';
 
 const Cart = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [checkoutButtonText, setCheckoutButtonText] = useState('FINALIZAR COMPRA');
+  const [checkoutButtonText, setCheckoutButtonText] =
+    useState('FINALIZAR COMPRA');
+
+  const { items, totalAmount, totalQuantity } = useAppSelector(
+    (state) => state.cart
+  );
 
   const toggleCart = () => setIsOpen(!isOpen);
 
@@ -47,7 +53,7 @@ const Cart = () => {
     <Container>
       <OpenCartButton onClick={toggleCart}>
         <BagIcon />
-        <span>0</span>
+        <span>{totalQuantity}</span>
       </OpenCartButton>
 
       <Overlay $show={isOpen ? 1 : 0} onClick={toggleCart} />
@@ -65,27 +71,35 @@ const Cart = () => {
           <h2>Mochila de Compras</h2>
         </CartHeader>
 
-        <AddedProducts />
+        <AddedProducts products={items} />
 
         <CartFooter>
           <CartTotal>
             <span>Total</span>
             <div>
-              <EtherumLogo /> 44 ETH
+              <EtherumLogo /> {totalAmount} ETH
             </div>
           </CartTotal>
 
-          <DefaultButton onClick={goToCheckout}>{checkoutButtonText}</DefaultButton>
+          <DefaultButton onClick={goToCheckout}>
+            {checkoutButtonText}
+          </DefaultButton>
         </CartFooter>
       </CartContainer>
     </Container>
   );
 };
 
-const AddedProducts = () => {
+interface IAddedProductsProps extends IProduct {
+  quantity: number;
+}
+
+const AddedProducts: React.FC<{ products: IAddedProductsProps[] }> = ({
+  products,
+}) => {
   return (
     <AddedProductsContainer>
-      {mocked_products.data.slice(0, 2).map((product) => (
+      {products.map((product) => (
         <CartProduct key={product.id} product={product} />
       ))}
     </AddedProductsContainer>

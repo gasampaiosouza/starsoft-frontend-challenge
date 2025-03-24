@@ -16,10 +16,12 @@ const Home = async () => {
   await queryClient.prefetchQuery({ queryKey: ['products'] });
   const dehydratedState = dehydrate(queryClient);
 
+  // console.log({ products });
+
   return (
     <ContentContainer>
       <HydrationBoundary state={dehydratedState}>
-        <ProductList initialProducts={products.data} />
+        <ProductList initialProducts={products.data} metadata={products.metadata} />
       </HydrationBoundary>
 
       <Pagination />

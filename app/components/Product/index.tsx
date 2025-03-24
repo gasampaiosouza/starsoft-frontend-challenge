@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { mocked_products } from '../ProductList';
 
 import EtherumLogo from 'public/etherum-logo.svg';
 
@@ -11,12 +10,21 @@ import {
   ProductName,
   ProductPrice,
 } from './styles';
+import { useAppDispatch } from '@/lib/hooks';
+import { addToCart } from '@/lib/features/cartSlice';
+import { IProduct } from '@/types/products';
 
-type IProduct = {
-  product: (typeof mocked_products.data)[0];
+type IProductProps = {
+  product: IProduct;
 };
 
-const Product: React.FC<IProduct> = ({ product }) => {
+const Product: React.FC<IProductProps> = ({ product }) => {
+  const dispatch = useAppDispatch();
+
+  function handleAddToCart(product: IProduct) {
+    dispatch(addToCart(product));
+  }
+
   return (
     <Container>
       <ProductImage>
@@ -25,12 +33,13 @@ const Product: React.FC<IProduct> = ({ product }) => {
 
       <ProductName>{product.name}</ProductName>
       <ProductDescription>{product.description}</ProductDescription>
+
       <ProductPrice>
         <EtherumLogo />
         {product.price} ETH
       </ProductPrice>
 
-      <BuyButton>COMPRAR</BuyButton>
+      <BuyButton onClick={() => handleAddToCart(product)}>COMPRAR</BuyButton>
     </Container>
   );
 };

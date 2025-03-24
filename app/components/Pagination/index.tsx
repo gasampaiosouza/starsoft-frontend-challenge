@@ -13,7 +13,7 @@ const Pagination = () => {
 const ProgressBar = () => {
   return (
     <ProgressOuter>
-      <ProgressInner $progress={50} />
+      <ProgressInner $progress={20} />
     </ProgressOuter>
   );
 };

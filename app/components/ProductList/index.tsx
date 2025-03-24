@@ -3,43 +3,37 @@
 import { getProducts } from '@/lib/api';
 import { fetchProducts } from '@/lib/features/productsSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { IProduct } from '@/types/products';
+import { IProduct, Metadata } from '@/types/products';
 import { useQuery } from '@tanstack/react-query';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import Product from '../Product';
 import { Container } from './styles';
 
-export const mocked_products = {
-  data: Array.from({ length: 20 }, (_, index) => ({
-    id: index + 1, // Unique ID for each item
-    name: 'Backpack',
-    description:
-      'Uma mochila resistente com compartimentos secretos, ideal para aventureiros que precisam carregar uma variedade de itens essenciais em suas jornadas épicas.',
-    image: 'https://softstar.s3.amazonaws.com/items/backpack.png',
-    price: 182,
-    createdAt: new Date().toISOString(),
-  })),
-};
-
 interface Props {
   initialProducts: IProduct[];
+  metadata: Metadata;
 }
 
-const ProductList: React.FC<Props> = ({ initialProducts }) => {
+const ProductList: React.FC<Props> = ({ initialProducts, metadata }) => {
   const dispatch = useAppDispatch();
-  const productsState = useAppSelector((state) => state.items);
-  const productsStatus = useAppSelector((state) => state.status);
+  const productsState = useAppSelector((state) => state.products.items);
+  const productsStatus = useAppSelector((state) => state.products.status);
+
+  // const [page, setPage] = useState(metadata.page);
 
   // console.log({ productsState });
 
   const { data: products } = useQuery({
+    // enabled: page > 1,
     queryKey: ['products'],
     queryFn: () => getProducts().then((res) => res.data),
     initialData: initialProducts,
     staleTime: 60 * 1000, // 1 minute to refetch
   });
+
+  // const handlePageChange = (newPage: number) => setPage(newPage);
 
   useEffect(() => {
     if (productsStatus === 'idle') {

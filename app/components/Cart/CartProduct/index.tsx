@@ -1,7 +1,5 @@
 import Image from 'next/image';
 
-import { mocked_products } from '@/components/ProductList';
-
 import EtherumLogo from 'public/etherum-logo.svg';
 import QuantityMinusIcon from 'public/quantity-minus.svg';
 import QuantityPlusIcon from 'public/quantity-plus.svg';
@@ -22,12 +20,17 @@ import {
   RemoveProductButton,
 } from './styles';
 import { useState } from 'react';
+import { useAppDispatch } from '@/lib/hooks';
+import { removeFromCart } from '@/lib/features/cartSlice';
+import { IProduct } from '@/types/products';
 
-type IProduct = {
-  product: (typeof mocked_products.data)[0];
-};
+const CartProduct: React.FC<{ product: IProduct }> = ({ product }) => {
+  const dispatch = useAppDispatch();
 
-const CartProduct: React.FC<IProduct> = ({ product }) => {
+  function handleRemoveFromCart(id: number) {
+    dispatch(removeFromCart(id));
+  }
+
   return (
     <Container>
       <CartProductImage>
@@ -46,7 +49,7 @@ const CartProduct: React.FC<IProduct> = ({ product }) => {
         <CartProductControls>
           <QuantitySelector />
 
-          <RemoveProductButton>
+          <RemoveProductButton onClick={() => handleRemoveFromCart(product.id)}>
             <TrashIcon />
           </RemoveProductButton>
         </CartProductControls>

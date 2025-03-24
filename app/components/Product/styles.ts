@@ -48,6 +48,8 @@ export const ProductDescription = styled.p`
   font-size: 12px;
   font-weight: 300;
 
+  height: 90px;
+
   margin-bottom: 30px;
 `;
 
