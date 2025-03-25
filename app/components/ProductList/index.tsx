@@ -1,39 +1,33 @@
 'use client';
 
-import { getProducts } from '@/lib/api';
-import { fetchProducts } from '@/lib/features/productsSlice';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { IProduct, Metadata } from '@/types/products';
-import { useQuery } from '@tanstack/react-query';
+import {
+  replaceProducts,
+  fetchProducts,
+  setMetadata,
+} from '@/lib/features/productsSlice';
+import { useAppDispatch, useAppSelector, useClientFetch } from '@/lib/hooks';
+import { IProducts } from '@/types/products';
 
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 import Product from '../Product';
-import { Container } from './styles';
+import { Container, LoadingComponent } from './styles';
+import Pagination from '../Pagination';
 
 interface Props {
-  initialProducts: IProduct[];
-  metadata: Metadata;
+  initialData: IProducts;
 }
 
-const ProductList: React.FC<Props> = ({ initialProducts, metadata }) => {
+const ProductList: React.FC<Props> = ({ initialData }) => {
   const dispatch = useAppDispatch();
-  const productsState = useAppSelector((state) => state.products.items);
+  const products = useAppSelector((state) => state.products.items);
   const productsStatus = useAppSelector((state) => state.products.status);
+  const defaultProductsPerPage = useAppSelector(
+    (state) => state.products.productsPerPage
+  );
 
-  // const [page, setPage] = useState(metadata.page);
-
-  // console.log({ productsState });
-
-  const { data: products } = useQuery({
-    // enabled: page > 1,
-    queryKey: ['products'],
-    queryFn: () => getProducts().then((res) => res.data),
-    initialData: initialProducts,
-    staleTime: 60 * 1000, // 1 minute to refetch
-  });
-
-  // const handlePageChange = (newPage: number) => setPage(newPage);
+  const handlePageChange = (newLimit: number) => setProductsPerPage(newLimit);
 
   useEffect(() => {
     if (productsStatus === 'idle') {
@@ -42,12 +36,50 @@ const ProductList: React.FC<Props> = ({ initialProducts, metadata }) => {
     }
   }, [dispatch, productsStatus]);
 
+  const [productsPerPage, setProductsPerPage] = useState(
+    defaultProductsPerPage
+  );
+
+  const { data, isLoading, isError } = useClientFetch(productsPerPage);
+
+  // fetch only when there are products, to cache them
+  useEffect(() => {
+    if (!data) return;
+
+    dispatch(replaceProducts(data.data));
+    dispatch(setMetadata(data.metadata));
+  }, [data, dispatch]);
+
+  if (isLoading) return <LoadingComponent />;
+  if (isError) return <p>Error</p>;
+
   return (
-    <Container>
-      {products.map((product) => (
-        <Product key={product.id} product={product} />
-      ))}
-    </Container>
+    <>
+      <Container>
+        {(products.length ? products : initialData.data).map(
+          (product, index) => (
+            // isPriority if it's one of the first four images
+            <motion.div
+              key={product.id}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ amount: 0.1, once: true }}
+              transition={{
+                duration: 1,
+                delay: 0.1 * (index >= 4 ? index - 4 : index),
+                type: 'spring',
+                stiffness: 100,
+                damping: 15,
+              }}
+            >
+              <Product product={product} isPriority={index < 4} />
+            </motion.div>
+          )
+        )}
+      </Container>
+
+      <Pagination limit={productsPerPage} changeLimit={handlePageChange} />
+    </>
   );
 };
 

@@ -10,6 +10,7 @@ import {
   CartTotal,
   CloseButton,
   Container,
+  EmptyCartMessage,
   OpenCartButton,
   Overlay,
 } from './styles';
@@ -21,6 +22,8 @@ import CartProduct from './CartProduct';
 import { DefaultButton } from '@/styles/global';
 import { useAppSelector } from '@/lib/hooks';
 import { IProduct } from '@/types/products';
+
+import { AnimatePresence } from 'framer-motion';
 
 const Cart = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -97,11 +100,19 @@ interface IAddedProductsProps extends IProduct {
 const AddedProducts: React.FC<{ products: IAddedProductsProps[] }> = ({
   products,
 }) => {
+  const hasProducts = products.length > 0;
+
   return (
     <AddedProductsContainer>
-      {products.map((product) => (
-        <CartProduct key={product.id} product={product} />
-      ))}
+      {hasProducts ? (
+        <AnimatePresence>
+          {products.map((product) => (
+            <CartProduct key={product.id} product={product} />
+          ))}
+        </AnimatePresence>
+      ) : (
+        <EmptyCartMessage>Seu carrinho está vazio</EmptyCartMessage>
+      )}
     </AddedProductsContainer>
   );
 };

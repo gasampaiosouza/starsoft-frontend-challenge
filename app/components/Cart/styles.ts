@@ -147,9 +147,14 @@ export const AddedProductsContainer = styled.div`
 
   max-height: 100%;
   overflow: auto;
+  overflow-x: hidden;
   padding-right: 10px;
 `;
 
 export const CartFooter = styled.footer`
   margin-top: auto;
+`;
+
+export const EmptyCartMessage = styled.h3`
+  text-align: center;
 `;

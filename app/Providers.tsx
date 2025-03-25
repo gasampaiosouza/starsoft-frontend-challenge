@@ -11,10 +11,11 @@ import { AppStore, makeStore } from '@/lib/store';
 
 import GlobalStyles from '@/styles/global';
 import theme from '@/styles/theme';
+import { getQueryClient } from './lib/queryClient';
 
 const Providers = (props: React.PropsWithChildren) => {
   const storeRef = useRef<AppStore | null>(null);
-  const queryClientRef = useRef(new QueryClient());
+  const queryClient = getQueryClient();
 
   if (!storeRef.current) {
     storeRef.current = makeStore();
@@ -22,7 +23,7 @@ const Providers = (props: React.PropsWithChildren) => {
 
   return (
     <ReduxProvider store={storeRef.current}>
-      <QueryClientProvider client={queryClientRef.current}>
+      <QueryClientProvider client={queryClient}>
         <StyledComponentsRegistry>
           <ThemeProvider theme={theme}>
             <GlobalStyles />

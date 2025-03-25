@@ -8,7 +8,8 @@ const theme = {
     secondary: 'var(--secondary-font)',
   },
   media: {
-    mobile: '768px'
+    mobile: '768px',
+    tablet: '1024px',
   },
   colors: {
     primary: '#FF8310',

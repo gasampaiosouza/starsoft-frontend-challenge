@@ -22,20 +22,22 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     // receives entire product as payload
-    addToCart: (state, action: PayloadAction<IProduct>) => {
+    addToCart: (state, action: PayloadAction<{ product: IProduct, quantity?: number }>) => {
       const alreadyAddedToCart = state.items.find(
-        (item) => item.id == action.payload.id
+        (item) => item.id == action.payload.product.id
       );
 
+      const quantity = action.payload.quantity || 1;
+
       if (alreadyAddedToCart) {
-        alreadyAddedToCart.quantity += 1;
+        alreadyAddedToCart.quantity += quantity;
       } else {
-        state.items.push({ ...action.payload, quantity: 1 });
+        state.items.push({ ...action.payload.product, quantity });
       }
 
       // it's good to keep track of price & quantity this way so we prevent big calculations on f/e in the future
-      state.totalQuantity += 1;
-      state.totalAmount += action.payload.price;
+      state.totalQuantity += quantity;
+      state.totalAmount += action.payload.product.price * quantity;
     },
 
     // receives product ID as payload
@@ -56,11 +58,15 @@ const cartSlice = createSlice({
 
       if (!alreadyAddedToCart) return;
 
-      state.totalQuantity -= alreadyAddedToCart.quantity + quantity;
+      if (quantity === 0) {
+        cartSlice.caseReducers.removeFromCart(state, { type: 'cart/removeFromCart', payload: id });
+        return;
+      }
+
+      state.totalQuantity = state.totalQuantity - alreadyAddedToCart.quantity + quantity;
+
       state.totalAmount = 
-        state.totalAmount - 
-        (alreadyAddedToCart.price * alreadyAddedToCart.quantity) + 
-        (alreadyAddedToCart.price * quantity);
+        state.totalAmount - (alreadyAddedToCart.price * alreadyAddedToCart.quantity) + (alreadyAddedToCart.price * quantity);
 
       alreadyAddedToCart.quantity = quantity;
     }

@@ -1,11 +1,10 @@
-import Pagination from '@/components/Pagination';
 import ProductList from '@/components/ProductList';
 
 import { ContentContainer } from './styles';
 
 import { getProducts } from './lib/api';
 import { getQueryClient } from './lib/queryClient';
-import { dehydrate, hydrate, HydrationBoundary } from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 const Home = async () => {
   // this is the new `getServerSideProps` on app router (you guys mentioned it on the readme)
@@ -16,15 +15,11 @@ const Home = async () => {
   await queryClient.prefetchQuery({ queryKey: ['products'] });
   const dehydratedState = dehydrate(queryClient);
 
-  // console.log({ products });
-
   return (
     <ContentContainer>
       <HydrationBoundary state={dehydratedState}>
-        <ProductList initialProducts={products.data} metadata={products.metadata} />
+        <ProductList initialData={products} />
       </HydrationBoundary>
-
-      <Pagination />
     </ContentContainer>
   );
 };

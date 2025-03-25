@@ -10,6 +10,7 @@ export interface IProduct {
   image: string;
   price: number;
   createdAt: string;
+  quantity: number;
 }
 
 export interface Metadata {

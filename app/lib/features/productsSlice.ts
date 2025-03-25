@@ -1,33 +1,41 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { getProducts } from '../api';
 
-import { IProduct } from '@/types/products';
+import { IProduct, Metadata } from '@/types/products';
 
 interface ProductState {
   items: IProduct[];
+  productsPerPage: number;
+  metadata: Metadata;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | undefined | null;
 }
 
-export const fetchProducts = createAsyncThunk(
-  'products/fetchProducts',
-  async () => {
-    // TODO
-    return await getProducts();
-  }
-);
-
 const initialState: ProductState = {
-  // TODO - items to products
   items: [],
+  productsPerPage: 12,
+  metadata: {} as Metadata,
   status: 'idle',
   error: null,
 };
 
+export const fetchProducts = createAsyncThunk(
+  'products/fetchProducts',
+  async () => await getProducts(initialState.productsPerPage) // initial products
+);
+
 const productsSlice = createSlice({
   name: 'products',
   initialState,
-  reducers: {},
+  reducers: {
+    replaceProducts: (state, action: PayloadAction<IProduct[]>) => {
+      state.items = action.payload;
+    },
+
+    setMetadata: (state, action: PayloadAction<Metadata>) => {
+      state.metadata = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -36,6 +44,7 @@ const productsSlice = createSlice({
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.items = action.payload.data;
+        state.metadata = action.payload.metadata;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = 'failed';
@@ -43,5 +52,7 @@ const productsSlice = createSlice({
       });
   },
 });
+
+export const { replaceProducts, setMetadata } = productsSlice.actions;
 
 export default productsSlice.reducer;

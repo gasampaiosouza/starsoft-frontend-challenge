@@ -7,6 +7,7 @@ import {
   Container,
   ProductDescription,
   ProductImage,
+  ProductLink,
   ProductName,
   ProductPrice,
 } from './styles';
@@ -16,28 +17,37 @@ import { IProduct } from '@/types/products';
 
 type IProductProps = {
   product: IProduct;
+  isPriority?: boolean;
 };
 
-const Product: React.FC<IProductProps> = ({ product }) => {
+const Product: React.FC<IProductProps> = ({ product, isPriority }) => {
   const dispatch = useAppDispatch();
 
   function handleAddToCart(product: IProduct) {
-    dispatch(addToCart(product));
+    dispatch(addToCart({ product }));
   }
-
   return (
     <Container>
-      <ProductImage>
-        <Image src={product.image} alt={product.name} draggable={false} fill />
-      </ProductImage>
+      <ProductLink href={`/product/${product.id}`}>
+        <ProductImage>
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            priority={isPriority}
+            quality={50}
+            draggable={false}
+          />
+        </ProductImage>
 
-      <ProductName>{product.name}</ProductName>
-      <ProductDescription>{product.description}</ProductDescription>
+        <ProductName>{product.name}</ProductName>
+        <ProductDescription>{product.description}</ProductDescription>
 
-      <ProductPrice>
-        <EtherumLogo />
-        {product.price} ETH
-      </ProductPrice>
+        <ProductPrice>
+          <EtherumLogo />
+          {product.price} ETH
+        </ProductPrice>
+      </ProductLink>
 
       <BuyButton onClick={() => handleAddToCart(product)}>COMPRAR</BuyButton>
     </Container>

@@ -19,9 +19,9 @@ import {
   QuantitySelectorContainer,
   RemoveProductButton,
 } from './styles';
-import { useState } from 'react';
-import { useAppDispatch } from '@/lib/hooks';
-import { removeFromCart } from '@/lib/features/cartSlice';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useDebounce } from '@/lib/hooks';
+import { removeFromCart, updateQuantity } from '@/lib/features/cartSlice';
 import { IProduct } from '@/types/products';
 
 const CartProduct: React.FC<{ product: IProduct }> = ({ product }) => {
@@ -31,8 +31,13 @@ const CartProduct: React.FC<{ product: IProduct }> = ({ product }) => {
     dispatch(removeFromCart(id));
   }
 
+  const itemVariants = {
+    hidden: { x: '200%', opacity: 0 },
+    visible: { x: '0', opacity: 1, transition: { duration: 1 } },
+  }
+
   return (
-    <Container>
+    <Container variants={itemVariants} exit="hidden">
       <CartProductImage>
         <Image src={product.image} alt={product.name} draggable={false} fill />
       </CartProductImage>
@@ -47,7 +52,7 @@ const CartProduct: React.FC<{ product: IProduct }> = ({ product }) => {
         </CartProductPrice>
 
         <CartProductControls>
-          <QuantitySelector />
+          <QuantitySelector product={product} />
 
           <RemoveProductButton onClick={() => handleRemoveFromCart(product.id)}>
             <TrashIcon />
@@ -58,21 +63,48 @@ const CartProduct: React.FC<{ product: IProduct }> = ({ product }) => {
   );
 };
 
-const QuantitySelector = () => {
-  const [quantity, setQuantity] = useState(1);
+interface IQuantitySelectorProps {
+  product: IProduct;
+  callback?: (quantity: number) => void;
+}
+
+const QuantitySelector: React.FC<IQuantitySelectorProps> = ({
+  product,
+  callback,
+}) => {
+  const [quantity, setQuantity] = useState(product.quantity || 1);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    // update quantity when the product quantity changes
+    setQuantity(product.quantity || 1);
+  }, [product.quantity])
+
+  // debounce only updates the global state, it prevents unecessary re-renders
+  const debouncedQuantity = useDebounce((quantity: number) => {
+    if (callback) callback(quantity);
+    else dispatch(updateQuantity({ id: product.id, quantity }));
+  }, 1000);
+
+  function handleQuantityChange(newQuantity: number) {
+    debouncedQuantity(newQuantity);
+
+    // optimal layout
+    setQuantity(newQuantity);
+  }
 
   return (
     <QuantitySelectorContainer>
-      <QuantityMinus onClick={() => setQuantity(quantity - 1)}>
+      <QuantityMinus onClick={() => handleQuantityChange(quantity - 1)}>
         <QuantityMinusIcon />
       </QuantityMinus>
 
       <CurrentQuantity
         value={quantity}
-        onChange={(e) => setQuantity(Number(e.target.value))}
+        onChange={(e) => handleQuantityChange(Number(e.target.value))}
       />
 
-      <QuantityPlus onClick={() => setQuantity(quantity + 1)}>
+      <QuantityPlus onClick={() => handleQuantityChange(quantity + 1)}>
         <QuantityPlusIcon />
       </QuantityPlus>
     </QuantitySelectorContainer>

@@ -1,29 +1,40 @@
 'use client';
 
-import { DefaultButton } from '@/styles/global';
 import styled from 'styled-components';
+import Link from 'next/link';
 
-export const Container = styled.article`
+import { DefaultButton } from '@/styles/global';
+
+import { motion } from 'framer-motion';
+
+export const Container = styled(motion.article)`
   background: ${({ theme }) => theme.colors.background};
   padding: 26px 24.5px;
 
   border-radius: ${({ theme }) => theme.radius.default};
 
   border: 1px solid transparent;
-  transition: .15s ease-in-out;
+  transition: 0.15s ease-in-out;
+
+  @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
+    padding: 16px 12px;
+  }
 
   &:hover {
-    cursor: pointer;
     background: #111216;
     border-color: #323541;
   }
+`;
+
+export const ProductLink = styled(Link)`
+  cursor: pointer;
 `;
 
 export const ProductImage = styled.div`
   margin-bottom: 49px;
 
   width: 296px;
-  height: 258px;
+  height: 320px;
   position: relative;
 
   img {
@@ -48,7 +59,11 @@ export const ProductDescription = styled.p`
   font-size: 12px;
   font-weight: 300;
 
-  height: 90px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 72px;
 
   margin-bottom: 30px;
 `;

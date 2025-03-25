@@ -1,9 +1,10 @@
 'use client';
 
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
-export const Container = styled.div`
-  background: #2B2B2B;
+export const Container = styled(motion.div)`
+  background: #2b2b2b;
   padding: 19.5px 30px;
   border-radius: ${({ theme }) => theme.radius.default};
 
@@ -12,7 +13,7 @@ export const Container = styled.div`
   gap: 31px;
 
   border: 1px solid transparent;
-  transition: .2s ease-in-out;
+  transition: 0.2s ease-in-out;
 
   &:hover {
     border-color: #555;
@@ -83,7 +84,7 @@ export const CartProductControls = styled.div`
   width: 100%;
 `;
 
-export const QuantitySelectorContainer = styled.div`
+export const QuantitySelectorContainer = styled(motion.div)`
   background: #232323;
   border-radius: ${({ theme }) => theme.radius.default};
 
@@ -102,7 +103,7 @@ const defaultStyling = `
   user-select: none;
 
   padding: 14.5px;
-`
+`;
 
 export const QuantityMinus = styled.div`
   ${defaultStyling}

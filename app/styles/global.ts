@@ -1,6 +1,7 @@
 'use client';
 
 import styled, { createGlobalStyle } from 'styled-components';
+import { motion } from 'framer-motion';
 
 const GlobalStyles = createGlobalStyle`
   html,
@@ -46,7 +47,7 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-export const DefaultButton = styled.button`
+export const DefaultButton = styled(motion.button)`
   color: ${({ theme }) => theme.colors.text.default};
   background: ${({ theme }) => theme.colors.primary};
 
@@ -58,7 +59,7 @@ export const DefaultButton = styled.button`
   border-radius: ${({ theme }) => theme.radius.default};
 
   width: 100%;
-  transition: 0.2s ease-in-out;
+  transition: filter 0.2s ease-in-out;
 
   &:hover {
     filter: brightness(1.1);
