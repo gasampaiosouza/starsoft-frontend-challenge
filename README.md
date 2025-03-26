@@ -21,8 +21,9 @@ This specific application was built just like an e-commerce, following all of th
 ### Accessibility and Performance
 
 - **A debounce function** is triggered when the user changes the product's quantity on the cart. So we don't update states unnecessarily;
-- **Products are cached** and first rendered on server side, so everything is as smooth as it can be.
-- **Everything that makes sense has a helpful hover effect** so the user knows what to expect from that specific component.
+- **Products are cached** and first rendered on server side, so everything is as smooth as it can be;
+- **Everything that makes sense has a helpful hover effect** so the user knows what to expect from that specific component;
+- **All product pages are pre-rendered on build time** so the user has a smoother experience when trying to see a new product;
 
 ### SEO
 
