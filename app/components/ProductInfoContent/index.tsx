@@ -61,7 +61,7 @@ const ProductInfoContent: React.FC<IProductInfoContent> = ({ product }) => {
   const defaultAnimation = (delay = 0) => ({
     initial: { opacity: 0, y: 25 },
     animate: { opacity: 1, y: 0 },
-    transition: { type: 'spring', delay: delay + 1 },
+    transition: { type: 'spring', delay: delay },
   });
 
   return (
