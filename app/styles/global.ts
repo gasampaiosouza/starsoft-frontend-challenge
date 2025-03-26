@@ -10,6 +10,17 @@ const GlobalStyles = createGlobalStyle`
       background: ${({ theme }) => theme.pageBackground};
   }
 
+  :root {
+    --toastify-color-success: ${({ theme }) => theme.colors.primary};
+    --toastify-font-family: ${({ theme }) => theme.font.default};
+    --toastify-color-dark: ${({ theme }) => theme.colors.background};
+  }
+
+  .Toastify__toast {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
   a {
       color: inherit;
       text-decoration: none;

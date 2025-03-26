@@ -2,7 +2,6 @@ import ProductList from '@/components/ProductList';
 import { render } from '@/lib/test-utils';
 import { IProduct } from '@/types/products';
 import { screen, waitFor } from '@testing-library/react';
-import axios from 'axios';
 
 import mockedResponse from './mockedResponse';
 
@@ -13,13 +12,14 @@ jest.mock(
       <div data-testid="product-card">{product.name}</div>
 );
 
-jest.mock('axios');
-
-const mockAxios = axios as jest.Mocked<typeof axios>;
+global.fetch = jest.fn();
 
 describe('product list', () => {
   beforeEach(() => {
-    mockAxios.get.mockResolvedValueOnce({ data: mockedResponse });
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve(mockedResponse),
+    });
   });
 
   test('should render product cards for each of the products', async () => {

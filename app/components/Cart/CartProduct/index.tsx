@@ -84,7 +84,7 @@ const QuantitySelector: React.FC<IQuantitySelectorProps> = ({
   const debouncedQuantity = useDebounce((quantity: number) => {
     if (callback) callback(quantity);
     else dispatch(updateQuantity({ id: product.id, quantity }));
-  }, 1000);
+  }, 500);
 
   function handleQuantityChange(newQuantity: number) {
     debouncedQuantity(newQuantity);

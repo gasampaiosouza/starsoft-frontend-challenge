@@ -4,6 +4,7 @@ import Providers from './Providers';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Template from './template';
+import { ToastContainer } from 'react-toastify';
 
 const poppins = Poppins({
   variable: '--default-font',
@@ -65,6 +66,13 @@ export default function RootLayout({
         <Providers>
           <Header />
           <Template>{children}</Template>
+
+          <ToastContainer
+            stacked
+            theme="dark"
+            position="top-center"
+            pauseOnHover={false}
+          />
           <Footer />
         </Providers>
       </body>

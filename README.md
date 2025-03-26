@@ -1,131 +1,108 @@
-# Teste para Desenvolvedor(a) Front-End Next.js
+# 📈 Starsoft Marketplace
 
-## Introdução
+**Starsoft Marketplace** is a project designed as a pratical test by starsoft, challenging developers to build an entire application using NextJS.
 
-Bem-vindo(a) ao processo seletivo para a posição de **Desenvolvedor(a) Front-End** em nossa equipe! Este teste tem como objetivo avaliar suas habilidades técnicas em **Next.js**, **React** e as demais tecnologias mencionadas na descrição da vaga.
+## 🚀 Features
 
-## Instruções
+Here are some of the features i found worth mentioning about this project and how i made it:
 
-- Faça um **fork** deste repositório para o seu GitHub pessoal.
-- Desenvolva a aplicação conforme as especificações abaixo, seguindo as **melhores práticas de desenvolvimento**.
-- Após a conclusão, envie o link do seu repositório para avaliação.
-- Sinta-se à vontade para adicionar qualquer documentação ou comentários que julgar necessário.
+### Built just like an e-commerce
 
-## Desafio
+This specific application was built just like an e-commerce, following all of the best patterns, layouts and features an e-commerce could have. Some of them are:
 
-### Contexto
+- **Product Page (PDP) is made to be exactly like an e-commerce:** where users can add products to their cart with the specified quantity, with no distractions;
 
-Você foi designado para desenvolver a interface de um **marketplace de NFTs** (Non-Fungible Tokens) com funcionalidades de carrinho de compras. O objetivo é criar uma aplicação web responsiva e interativa que proporcione uma ótima experiência ao usuário, utilizando **Next.js** como framework principal.
+- **Subtle animations:** So the user knows what's happening and where they should go, intuitively;
 
-### Requisitos
+- **Everything is designed to be beautiful and easy**, including:
+   - the product card grid is even and has ellipsis on the description so it don't take much space and the user can keep reading on the pdp;
+   - the font's spacing, positioning and size on pdp is just big enough so the user can read it clearly and knows where to look;
 
-1. **Uso do Next.js**
+### Accessibility and Performance
 
-   - Utilize **Next.js** como o framework principal da aplicação.
-   - Aproveite os recursos do Next.js, como:
-     - **Renderização no Lado do Servidor (SSR)** e/ou **Geração de Sites Estáticos (SSG)** para otimizar o carregamento das páginas.
-     - **Rotas Dinâmicas** para páginas de detalhes dos NFTs.
-     - **Next.js API Routes** se necessário para funcionalidades adicionais.
-     - **Otimização de Imagens** com o componente `next/image`.
-     - **Importação Dinâmica** para carregamento otimizado de componentes pesados.
+- **A debounce function** is triggered when the user changes the product's quantity on the cart. So we don't update states unnecessarily;
+- **Products are cached** and first rendered on server side, so everything is as smooth as it can be.
+- **Everything that makes sense has a helpful hover effect** so the user knows what to expect from that specific component.
 
-2. **Interface do Usuário**
+### SEO
 
-   - Implemente o design fornecido no link do **Figma**:
-     - [Figma Design](https://www.figma.com/design/j9HHfWPPoLyObtlVBeMhTD/Front-end-Challenge?node-id=0-1&t=sWwJ0qlYdwzJHKyJ-0)
-   - Siga fielmente o design e as especificações fornecidas.
-   - Garanta que a aplicação seja **responsiva** e funcione bem em diferentes tamanhos de tela.
-   - Implemente navegação entre as páginas utilizando o sistema de roteamento do Next.js.
+Everything related to SEO is centered under `/app/layout.tsx`. There we have the page's default title, descriptions, keywords, robots, page's theme color, scheme, favicons made to work anywhere, etc.
 
-3. **Gerenciamento de Estado**
+### What more features would i add?
 
-   - Utilize **Redux** ou **Redux Toolkit** para gerenciar o estado global da aplicação.
-   - Configure a store do Redux e implemente os reducers necessários.
-   - Gerencie estados como itens no carrinho,
+For this app i would add some more features to help the user a little bit more. A couple of them are:
+- open the cart when the user adds a new product to it;
+- save the products so even when user refreshes the page their products remains on the cart;
 
-4. **Busca de Dados**
+## 📁 Project Setup
 
-   - Use **React Query** para buscar e sincronizar dados da API.
-   - A API está documentada em:
-     - [Starsoft Challenge API Docs](https://starsoft-challenge-7dfd4a56a575.herokuapp.com/v1/docs)
-   - Implemente chamadas para obter a lista de NFTs, detalhes dos itens, etc.
-   - Utilize o **Data Fetching** do Next.js (`getStaticProps`, `getServerSideProps`) conforme adequado.
-   - Trate os estados de **loading**, **sucesso** e **erro** nas requisições.
+To setup and explore this project:
 
-5. **Animações e Interações**
+1. Clone this repository
+```bash
+git clone https://github.com/gasampaiosouza/starsoft-frontend-challenge.git starsoft-challenge
+cd starsoft-challenge
+```
 
-   - Utilize **Framer Motion** para adicionar animações e interações conforme necessário.
-   - Garanta que as animações sejam suaves e contribuam para a experiência do usuário.
-   - Implemente animações em transições de página, hover em botões e cards, entre outros.
+2. Install the dependencies using `pnpm install`
 
-6. **Estilização**
+To see it running, we have a couple of ways:
 
-   - Use **SASS** ou **Styled Components** para estilizar a aplicação.
-   - Organize os estilos de maneira modular e reutilizável.
-   - Siga as boas práticas de organização de arquivos e componentes.
-   - Garanta a consistência visual em toda a aplicação.
+### With docker
 
-7. **Configuração com Docker**
+To set it up with docker, just run
 
-   - Configure o ambiente de desenvolvimento utilizando **Docker** e **Docker Compose**.
-   - Crie um arquivo `Dockerfile` para a aplicação Next.js.
-   - Crie um arquivo `docker-compose.yml` para orquestrar os serviços necessários.
-   - A aplicação deve ser iniciada com um único comando (`docker-compose up`).
-   - Documente quaisquer configurações específicas necessárias.
+```bash
+docker-compose up
+```
 
-8. **Boas Práticas de Código**
+### Without docker
 
-   - Aplique os princípios de **Clean Code** em toda a sua implementação.
-   - Utilize um padrão de código consistente e configure **ESLint** e **Prettier** no projeto.
-   - Documente o código quando necessário para melhorar a legibilidade.
-   - Utilize os recursos do **Next.js** para otimização, como importação dinâmica e otimização de imagens.
+To run it with no docker at all, you can run
 
-9. **Testes**
+```bash
+pnpm dev
+```
 
-   - Escreva testes unitários e/ou de integração para as principais funcionalidades da aplicação utilizando **Jest** e **React Testing Library**.
-   - Os testes devem cobrir, no mínimo, os componentes principais e funcionalidades críticas.
-   - Garanta que todos os testes passem antes de enviar o projeto.
+## Running tests
 
-### Diferenciais (Desejável)
+To see if all of the tests are ok, you may run
 
-- **TypeScript**
+```bash
+pnpm test
+```
 
-  - Utilize **TypeScript** para adicionar tipagem estática ao seu código, aumentando a robustez e manutenção do projeto.
+## 🛠️ Tech Stack
 
-- **SEO e Acessibilidade**
+For this project i did use:
 
-  - Implemente boas práticas de **SEO** e **acessibilidade** na aplicação.
-  - Utilize o componente `next/head` para manipulação de meta tags.
-  - Otimize a performance da aplicação seguindo as recomendações do **Lighthouse**.
+**Next.js** and **React Query:**
 
-## Entrega
+I choose next and react query because of their cache, performance and security abilities. When running an e-commerce that's the first thing you want to think about.
 
-- O código deve estar disponível em um repositório Git (preferencialmente **GitHub**) público.
-- Inclua um arquivo `README.md` com:
-  - Instruções claras sobre como configurar e executar a aplicação.
-  - Descrição das funcionalidades implementadas.
-  - Tecnologias utilizadas e justificativas de escolhas técnicas.
-  - Possíveis limitações ou melhorias futuras.
-- Certifique-se de que o histórico de commits reflita o andamento do desenvolvimento, com mensagens claras e objetivas.
+**TypeScript**, **Styled Components** and **Redux:**
 
-## Avaliação
+Typescript helps a lot when you have a big codebase. When we join it with styled components and redux, it helps even more!!
 
-Os seguintes aspectos serão considerados na avaliação:
+Styled components helps a lot when styling components that are already made like an SVG, a next/link or something related to it.
 
-- **Uso do Next.js**: Aproveitamento adequado dos recursos e features do Next.js na aplicação.
-- **Fidelidade ao Design**: A interface deve ser fiel ao design fornecido no Figma.
-- **Funcionalidade**: A aplicação deve estar funcional e todas as interações devem estar implementadas corretamente.
-- **Gerenciamento de Estado**: O uso de Redux para gerenciamento de estado deve ser eficiente e bem estruturado.
-- **Busca de Dados**: A integração com a API usando React Query e Next.js deve ser feita corretamente.
-- **Animações e Interações**: As animações devem ser suaves e bem integradas na experiência do usuário.
-- **Código Limpo**: O código deve ser limpo, seguindo boas práticas de desenvolvimento e princípios de Clean Code.
-- **Estilização**: A aplicação deve ser estilizada usando SASS de forma modular e reutilizável.
-- **Testes**: Qualidade e abrangência dos testes implementados.
-- **Configuração com Docker**: A configuração do ambiente de desenvolvimento utilizando Docker e Docker Compose deve ser clara e funcional.
-- **Documentação**: Clareza das instruções e documentação fornecidas no `README.md`.
-- **Histórico de Commits**: Uso adequado do Git com commits bem descritos.
+Redux makes a lot easier to manage states globally, it helps us to keep track of everything that is happening. States can be a big mess sometimes.
 
----
 
-Boa sorte! Estamos ansiosos para conhecer o seu trabalho e potencial.
+**Framer Motion**
 
+I opted for framer motion because it's a lot easy to setup and run. Their animations are a lot clean right off the box, makes it a lot easier to work with.
+
+**Jest**, **Docker** and **Docker Compose:**
+
+Jest is awesome for testing!! no doubt it's the best one out there.
+
+Docker is really easy to setup and helps you to see the results of your prod environment right away!! also a good choice on products like that.
+
+## 🙏 Thank you
+
+Thank you for taking some time to read this and to see the project online!! bye 🖖🏻
+
+<!-- ### Other versions
+
+For a portuguese version of this readme, [click here]() -->

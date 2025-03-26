@@ -72,13 +72,14 @@ const ProductInfoContent: React.FC<IProductInfoContent> = ({ product }) => {
       </BackButton>
 
       <ProductContainer>
-        <ProductImage {...defaultAnimation()}>
+        <ProductImage {...defaultAnimation(0.5)}>
           <Image
             src={product.image}
             alt={product.name}
             fill
             priority
-            quality={100}
+            fetchPriority="high"
+            quality={80}
             draggable={false}
           />
         </ProductImage>

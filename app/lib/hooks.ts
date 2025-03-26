@@ -35,6 +35,7 @@ export const useClientFetch = (productsPerPage: number) => {
     queryKey: ['products', productsPerPage],
     queryFn: () => getProducts(productsPerPage).then((res) => res),
     placeholderData: keepPreviousData,
+    staleTime: 60 * 1000 * 30, // 30 minutes
   });
 
   return query;
