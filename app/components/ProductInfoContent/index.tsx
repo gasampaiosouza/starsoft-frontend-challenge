@@ -4,15 +4,15 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 import { IProduct } from '@/types/products';
-import EtherumLogo from 'public/etherum-logo.svg';
+import EtherumLogo from '@/components/icons/etherum-logo';
 
 import { addToCart } from '@/lib/features/cartSlice';
 import { useAppDispatch } from '@/lib/hooks';
 
-import QuantityMinusIcon from 'public/quantity-minus.svg';
-import QuantityPlusIcon from 'public/quantity-plus.svg';
+import QuantityMinusIcon from '@/components/icons/quantity-minus';
+import QuantityPlusIcon from '@/components/icons/quantity-plus';
 
-import ArrowLeft from 'public/arrow-left.svg';
+import ArrowLeft from '@/components/icons/arrow-left';
 
 import { motion } from 'framer-motion';
 
@@ -36,7 +36,6 @@ import {
   ProductQuantityLabel,
   ProductQuantitySelector,
 } from './styles';
-import { useRouter } from 'next/navigation';
 
 interface IProductInfoContent {
   product: IProduct | undefined;
@@ -45,11 +44,11 @@ interface IProductInfoContent {
 const ProductInfoContent: React.FC<IProductInfoContent> = ({ product }) => {
   const dispatch = useAppDispatch();
 
+  const [productQuantity, setProductQuantity] = useState(
+    product?.quantity || 1
+  );
+
   if (!product) return <ProductNotFound />;
-
-  const router = useRouter();
-
-  const [productQuantity, setProductQuantity] = useState(product.quantity || 1);
 
   function handleQuantityChange(newQuantity: number) {
     setProductQuantity(newQuantity);
@@ -62,12 +61,12 @@ const ProductInfoContent: React.FC<IProductInfoContent> = ({ product }) => {
   const defaultAnimation = (delay = 0) => ({
     initial: { opacity: 0, y: 25 },
     animate: { opacity: 1, y: 0 },
-    transition: { type: 'spring', delay },
+    transition: { type: 'spring', delay: delay + 1 },
   });
 
   return (
     <Container>
-      <BackButton onClick={() => router.back()}>
+      <BackButton href="/">
         <ArrowLeft />
         Voltar
       </BackButton>
@@ -129,13 +128,11 @@ const ProductInfoContent: React.FC<IProductInfoContent> = ({ product }) => {
 };
 
 function ProductNotFound() {
-  const router = useRouter();
-
   return (
     <NotFoundContainer>
       <motion.h3>O produto que você está procurando não existe</motion.h3>
 
-      <BackButton onClick={() => router.back()}>
+      <BackButton href="/">
         <ArrowLeft />
         Voltar
       </BackButton>

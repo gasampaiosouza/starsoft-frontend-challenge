@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
+  // output: 'standalone',
   compiler: { styledComponents: true },
   images: {
     remotePatterns: [

@@ -12,7 +12,7 @@ export const useAppSelector = useSelector.withTypes<RootState>();
 export const useAppStore = useStore.withTypes<AppStore>();
 
 // debounce function. It prevents re-renders and using it as a hook prevents it from being recreated every time
-export function useDebounce<T extends (...args: any[]) => void>(
+export function useDebounce<T extends (...args: unknown[]) => void>(
   callback: T,
   delay: number
 ) {

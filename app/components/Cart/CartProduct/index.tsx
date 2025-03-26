@@ -1,9 +1,9 @@
 import Image from 'next/image';
 
-import EtherumLogo from 'public/etherum-logo.svg';
-import QuantityMinusIcon from 'public/quantity-minus.svg';
-import QuantityPlusIcon from 'public/quantity-plus.svg';
-import TrashIcon from 'public/trash.svg';
+import EtherumLogo from '@/components/icons/etherum-logo';
+import QuantityMinusIcon from '@/components/icons/quantity-minus';
+import QuantityPlusIcon from '@/components/icons/quantity-plus';
+import TrashIcon from '@/components/icons/trash';
 
 import {
   Container,
@@ -24,16 +24,16 @@ import { useAppDispatch, useDebounce } from '@/lib/hooks';
 import { removeFromCart, updateQuantity } from '@/lib/features/cartSlice';
 import { IProduct } from '@/types/products';
 
+const itemVariants = {
+  hidden: { x: '200%', opacity: 0 },
+  visible: { x: '0', opacity: 1, transition: { duration: 1 } },
+};
+
 const CartProduct: React.FC<{ product: IProduct }> = ({ product }) => {
   const dispatch = useAppDispatch();
 
   function handleRemoveFromCart(id: number) {
     dispatch(removeFromCart(id));
-  }
-
-  const itemVariants = {
-    hidden: { x: '200%', opacity: 0 },
-    visible: { x: '0', opacity: 1, transition: { duration: 1 } },
   }
 
   return (
@@ -78,7 +78,7 @@ const QuantitySelector: React.FC<IQuantitySelectorProps> = ({
   useEffect(() => {
     // update quantity when the product quantity changes
     setQuantity(product.quantity || 1);
-  }, [product.quantity])
+  }, [product.quantity]);
 
   // debounce only updates the global state, it prevents unecessary re-renders
   const debouncedQuantity = useDebounce((quantity: number) => {

@@ -155,6 +155,9 @@ export const CartFooter = styled.footer`
   margin-top: auto;
 `;
 
-export const EmptyCartMessage = styled.h3`
+export const EmptyCartMessage = styled(motion.h3)`
   text-align: center;
+
+  height: 80px;
+  overflow: hidden;
 `;

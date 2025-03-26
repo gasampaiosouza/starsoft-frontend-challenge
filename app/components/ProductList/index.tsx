@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  replaceProducts,
-  fetchProducts,
-  setMetadata,
-} from '@/lib/features/productsSlice';
+import { replaceProducts, setMetadata } from '@/lib/features/productsSlice';
 import { useAppDispatch, useAppSelector, useClientFetch } from '@/lib/hooks';
 import { IProducts } from '@/types/products';
 
@@ -12,29 +8,23 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 import Product from '../Product';
-import { Container, LoadingComponent } from './styles';
+import { Container, ErrorComponent, LoadingComponent } from './styles';
 import Pagination from '../Pagination';
 
+import Loading from '@/components/icons/loading';
+
 interface Props {
-  initialData: IProducts;
+  initialData: IProducts | undefined;
 }
 
 const ProductList: React.FC<Props> = ({ initialData }) => {
   const dispatch = useAppDispatch();
   const products = useAppSelector((state) => state.products.items);
-  const productsStatus = useAppSelector((state) => state.products.status);
   const defaultProductsPerPage = useAppSelector(
     (state) => state.products.productsPerPage
   );
 
   const handlePageChange = (newLimit: number) => setProductsPerPage(newLimit);
-
-  useEffect(() => {
-    if (productsStatus === 'idle') {
-      // only fetch if there are no products yet
-      dispatch(fetchProducts());
-    }
-  }, [dispatch, productsStatus]);
 
   const [productsPerPage, setProductsPerPage] = useState(
     defaultProductsPerPage
@@ -42,7 +32,7 @@ const ProductList: React.FC<Props> = ({ initialData }) => {
 
   const { data, isLoading, isError } = useClientFetch(productsPerPage);
 
-  // fetch only when there are products, to cache them
+  // run to save products and metadata on the global state
   useEffect(() => {
     if (!data) return;
 
@@ -50,13 +40,26 @@ const ProductList: React.FC<Props> = ({ initialData }) => {
     dispatch(setMetadata(data.metadata));
   }, [data, dispatch]);
 
-  if (isLoading) return <LoadingComponent />;
-  if (isError) return <p>Error</p>;
+  if (isLoading) {
+    return (
+      <LoadingComponent>
+        <Loading />
+      </LoadingComponent>
+    );
+  }
+
+  if (isError) {
+    return (
+      <ErrorComponent>
+        Ocorreu um erro, tente novamente mais tarde
+      </ErrorComponent>
+    );
+  }
 
   return (
     <>
       <Container>
-        {(products.length ? products : initialData.data).map(
+        {(products.length ? products : initialData!.data).map(
           (product, index) => (
             // isPriority if it's one of the first four images
             <motion.div
@@ -66,10 +69,8 @@ const ProductList: React.FC<Props> = ({ initialData }) => {
               viewport={{ amount: 0.1, once: true }}
               transition={{
                 duration: 1,
-                delay: 0.1 * (index >= 4 ? index - 4 : index),
+                delay: 0.05 * (index >= 4 ? index - 4 : index),
                 type: 'spring',
-                stiffness: 100,
-                damping: 15,
               }}
             >
               <Product product={product} isPriority={index < 4} />

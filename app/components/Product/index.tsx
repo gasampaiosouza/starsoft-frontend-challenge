@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import EtherumLogo from 'public/etherum-logo.svg';
+import EtherumLogo from '@/components/icons/etherum-logo';
 
 import {
   BuyButton,
@@ -26,6 +26,7 @@ const Product: React.FC<IProductProps> = ({ product, isPriority }) => {
   function handleAddToCart(product: IProduct) {
     dispatch(addToCart({ product }));
   }
+
   return (
     <Container>
       <ProductLink href={`/product/${product.id}`}>
@@ -35,6 +36,7 @@ const Product: React.FC<IProductProps> = ({ product, isPriority }) => {
             alt={product.name}
             fill
             priority={isPriority}
+            loading={isPriority ? 'eager' : 'lazy'}
             quality={50}
             draggable={false}
           />

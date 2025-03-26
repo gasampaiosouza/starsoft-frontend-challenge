@@ -1,9 +1,22 @@
 import ProductInfoContent from '@/components/ProductInfoContent';
 import { getProducts } from '@/lib/api';
+import { Metadata } from 'next';
+
+export async function generateStaticParams() {
+  const products = await getProducts(1000);
+
+  return products?.data.map((product) => ({
+    id: String(product.id),
+  })) || [];
+}
 
 interface IProductPage {
   params: Promise<{ id: number }>;
 }
+
+export const metadata: Metadata = {
+  title: 'Produto',
+};
 
 const ProductPage: React.FC<IProductPage> = async ({ params }) => {
   const { id } = await params;
@@ -18,7 +31,7 @@ const ProductPage: React.FC<IProductPage> = async ({ params }) => {
   // if this was real world, i'd do another request on client side to get the metadata count, and change the limit
   // we're not sure if 1000 is enough.
   const products = await getProducts(1000);
-  const product = products.data.find((product) => product.id == id);
+  const product = products?.data.find((product) => product.id == id);
 
   return <ProductInfoContent product={product} />;
 };

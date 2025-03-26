@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 
 import { ThemeProvider } from 'styled-components';
 

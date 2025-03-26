@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Cart from '../Cart';
 import { Container } from './styles';
 
-import Logo from 'public/logo.svg';
+import Logo from '@/components/icons/logo';
 // import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 // import { increment, selectCount } from '@/lib/features/counterSlice';
 
@@ -14,7 +14,7 @@ const Header = () => {
 
   return (
     <Container>
-      <Link className='logo' href="/">
+      <Link className="logo" href="/">
         <Logo />
       </Link>
 

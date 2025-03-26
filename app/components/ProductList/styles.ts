@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 
 import { motion } from 'framer-motion';
-import Loading from 'public/loading.svg';
+// import Loading from '@/components/icons/loading';
 
 export const Container = styled(motion.section)`
   margin-top: 289px; // 189px + fixed header size (100px)
@@ -22,7 +22,7 @@ export const Container = styled(motion.section)`
   }
 `;
 
-export const LoadingComponent = styled(Loading)`
+export const LoadingComponent = styled.div`
   width: 200px;
 
   position: absolute;
@@ -30,4 +30,12 @@ export const LoadingComponent = styled(Loading)`
   left: 50%;
 
   transform: translate(-50%, -50%);
-`
+`;
+
+export const ErrorComponent = styled.h3`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+`;

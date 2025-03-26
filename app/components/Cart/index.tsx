@@ -15,9 +15,9 @@ import {
   Overlay,
 } from './styles';
 
-import BagIcon from 'public/bag.svg';
-import ArrowLeft from 'public/arrow-left.svg';
-import EtherumLogo from 'public/etherum-logo.svg';
+import BagIcon from '@/components/icons/bag';
+import ArrowLeft from '@/components/icons/arrow-left';
+import EtherumLogo from '@/components/icons/etherum-logo';
 import CartProduct from './CartProduct';
 import { DefaultButton } from '@/styles/global';
 import { useAppSelector } from '@/lib/hooks';
@@ -111,7 +111,13 @@ const AddedProducts: React.FC<{ products: IAddedProductsProps[] }> = ({
           ))}
         </AnimatePresence>
       ) : (
-        <EmptyCartMessage>Seu carrinho está vazio</EmptyCartMessage>
+        <EmptyCartMessage
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          Seu carrinho está vazio
+        </EmptyCartMessage>
       )}
     </AddedProductsContainer>
   );

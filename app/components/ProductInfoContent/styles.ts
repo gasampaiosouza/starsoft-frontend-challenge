@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import { DefaultButton } from '@/styles/global';
 import { QuantitySelectorContainer } from '../Cart/CartProduct/styles';
 
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export const Container = styled.article`
   /* background: ${({ theme }) => theme.colors.background}; */
@@ -34,7 +35,7 @@ export const ProductContainer = styled.div`
   }
 `;
 
-export const BackButton = styled.button`
+export const BackButton = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,7 +45,7 @@ export const BackButton = styled.button`
 
   background: #373737;
 
-  width: 40px;
+  max-width: 110px;
   height: 40px;
   border-radius: ${({ theme }) => theme.radius.default};
 
