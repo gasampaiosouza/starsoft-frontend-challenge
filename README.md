@@ -36,7 +36,9 @@ For this app i would add some more features to help the user a little bit more. 
 
 ## 📁 Project Setup
 
-To setup and explore this project:
+You can explore this project by simply going to [this link here](https://starsoft-challenge-six.vercel.app)
+
+But if you are adventurous and want to see what's inside the code, here's how you can set it up on your machine:
 
 1. Clone this repository
 ```bash
