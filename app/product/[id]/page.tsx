@@ -1,13 +1,17 @@
-import ProductInfoContent from '@/components/ProductInfoContent';
-import { getProducts } from '@/lib/api';
 import { Metadata } from 'next';
 
+import ProductInfoContent from '@/components/ProductInfoContent';
+import { getProducts } from '@/lib/api';
+
+// generate static files for each product page
 export async function generateStaticParams() {
   const products = await getProducts(1000);
 
-  return products?.data.map((product) => ({
-    id: String(product.id),
-  })) || [];
+  return (
+    products?.data.map((product) => ({
+      id: String(product.id),
+    })) || []
+  );
 }
 
 interface IProductPage {

@@ -1,9 +1,9 @@
 import React from 'react';
 import debounce from 'lodash.debounce';
-
+import { useQuery } from '@tanstack/react-query';
 import { useDispatch, useSelector, useStore } from 'react-redux';
+
 import type { AppDispatch, AppStore, RootState } from './store';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { getProducts } from './api';
 
 // redux
@@ -34,8 +34,6 @@ export const useClientFetch = (productsPerPage: number) => {
   const query = useQuery({
     queryKey: ['products', productsPerPage],
     queryFn: () => getProducts(productsPerPage).then((res) => res),
-    placeholderData: keepPreviousData,
-    staleTime: 60 * 1000 * 30, // 30 minutes
   });
 
   return query;

@@ -1,17 +1,16 @@
 'use client';
 
-import { replaceProducts, setMetadata } from '@/lib/features/productsSlice';
-import { useAppDispatch, useAppSelector, useClientFetch } from '@/lib/hooks';
-import { IProducts } from '@/types/products';
-
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+
+import { useAppDispatch, useAppSelector, useClientFetch } from '@/lib/hooks';
+import { replaceProducts, setMetadata } from '@/lib/features/productsSlice';
+import Loading from '@/components/icons/loading';
+import { IProducts } from '@/types/products';
 
 import Product from '../Product';
 import { Container, ErrorComponent, LoadingComponent } from './styles';
 import Pagination from '../Pagination';
-
-import Loading from '@/components/icons/loading';
 
 interface Props {
   initialData: IProducts | undefined;
@@ -32,7 +31,7 @@ const ProductList: React.FC<Props> = ({ initialData }) => {
 
   const { data, isLoading, isError } = useClientFetch(productsPerPage);
 
-  // run to save products and metadata on the global state
+  // run to save products & metadata on the global state
   useEffect(() => {
     if (!data) return;
 
@@ -61,7 +60,6 @@ const ProductList: React.FC<Props> = ({ initialData }) => {
       <Container>
         {(products.length ? products : initialData!.data).map(
           (product, index) => (
-            // isPriority if it's one of the first four images
             <motion.div
               key={product.id}
               initial={{ opacity: 0, y: 50 }}
@@ -73,6 +71,7 @@ const ProductList: React.FC<Props> = ({ initialData }) => {
                 type: 'spring',
               }}
             >
+              {/* isPriority to render if it's one of the first four images */}
               <Product product={product} isPriority={index < 4} />
             </motion.div>
           )

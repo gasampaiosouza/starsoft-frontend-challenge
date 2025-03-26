@@ -26,12 +26,12 @@ describe('product list', () => {
     render(<ProductList initialData={mockedResponse} />);
 
     await waitFor(() => {
-      expect(screen.getByText('Backpack')).toBeInTheDocument();
-      expect(screen.getByText('Boots of Ppeed')).toBeInTheDocument();
-      expect(screen.getByText('Curved Blade')).toBeInTheDocument();
+      mockedResponse.data.forEach((product) => {
+        expect(screen.getByText(product.name)).toBeInTheDocument();
+      });
     });
 
     const cards = screen.getAllByTestId('product-card');
-    expect(cards.length).toBe(3);
+    expect(cards.length).toBe(mockedResponse.data.length);
   });
 });

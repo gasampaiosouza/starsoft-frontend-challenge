@@ -1,15 +1,14 @@
 'use client';
 
-import styled from 'styled-components';
-
-import { DefaultButton } from '@/styles/global';
-import { QuantitySelectorContainer } from '../Cart/CartProduct/styles';
-
 import { motion } from 'framer-motion';
+import styled from 'styled-components';
 import Link from 'next/link';
 
+import { DefaultButton } from '@/styles/global';
+
+import { QuantitySelectorContainer } from '../Cart/CartProduct/styles';
+
 export const Container = styled.article`
-  /* background: ${({ theme }) => theme.colors.background}; */
   padding: 26px 24.5px;
 
   border-radius: ${({ theme }) => theme.radius.default};
@@ -60,7 +59,6 @@ export const BackButton = styled(Link)`
 
   svg {
     width: 25px;
-    /* height: 25px; */
   }
 
   &:hover {
@@ -71,7 +69,6 @@ export const BackButton = styled(Link)`
 export const ProductImage = styled(motion.div)`
   display: flex;
   margin-bottom: 49px;
-  /* box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); */
 
   --size: 600px;
 

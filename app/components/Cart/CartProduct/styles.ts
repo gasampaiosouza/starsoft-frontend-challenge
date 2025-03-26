@@ -85,7 +85,7 @@ export const CartProductControls = styled.div`
 `;
 
 export const QuantitySelectorContainer = styled(motion.div)`
-  background: #232323;
+  background: ${({ theme }) => theme.pageBackground};
   border-radius: ${({ theme }) => theme.radius.default};
 
   display: flex;

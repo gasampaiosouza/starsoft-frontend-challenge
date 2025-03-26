@@ -22,7 +22,7 @@ describe('product page', () => {
     });
   });
 
-  test('should render a not found page', async () => {
+  test('should render a not found page', () => {
     render(<ProductInfoContent product={undefined} />);
 
     expect(

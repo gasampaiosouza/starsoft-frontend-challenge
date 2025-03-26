@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import EtherumLogo from '@/components/icons/etherum-logo';
@@ -19,7 +20,7 @@ import {
   QuantitySelectorContainer,
   RemoveProductButton,
 } from './styles';
-import { useEffect, useState } from 'react';
+
 import { useAppDispatch, useDebounce } from '@/lib/hooks';
 import { removeFromCart, updateQuantity } from '@/lib/features/cartSlice';
 import { IProduct } from '@/types/products';
@@ -80,7 +81,7 @@ const QuantitySelector: React.FC<IQuantitySelectorProps> = ({
     setQuantity(product.quantity || 1);
   }, [product.quantity]);
 
-  // debounce only updates the global state, it prevents unecessary re-renders
+  // debounce only updates the global state, it prevents unnecessary re-renders
   const debouncedQuantity = useDebounce((quantity: number) => {
     if (callback) callback(quantity);
     else dispatch(updateQuantity({ id: product.id, quantity }));

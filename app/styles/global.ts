@@ -49,12 +49,12 @@ const GlobalStyles = createGlobalStyle`
 
   *::-webkit-scrollbar-track {
     border-radius: 8px;
-    background-color: #232323;
+    background-color: ${({ theme }) => theme.pageBackground};
   }
 
   *::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background-color: #FF8310;
+    background-color: ${({ theme }) => theme.colors.primary};
   }
 `;
 

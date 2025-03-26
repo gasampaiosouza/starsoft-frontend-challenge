@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 
 import {
   AddedProductsContainer,
@@ -22,8 +23,6 @@ import CartProduct from './CartProduct';
 import { DefaultButton } from '@/styles/global';
 import { useAppSelector } from '@/lib/hooks';
 import { IProduct } from '@/types/products';
-
-import { AnimatePresence } from 'framer-motion';
 
 const Cart = () => {
   const [isOpen, setIsOpen] = useState(false);

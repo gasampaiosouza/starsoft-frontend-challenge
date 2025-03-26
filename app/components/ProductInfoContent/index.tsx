@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 import { IProduct } from '@/types/products';
 import EtherumLogo from '@/components/icons/etherum-logo';
@@ -13,8 +14,6 @@ import QuantityMinusIcon from '@/components/icons/quantity-minus';
 import QuantityPlusIcon from '@/components/icons/quantity-plus';
 
 import ArrowLeft from '@/components/icons/arrow-left';
-
-import { motion } from 'framer-motion';
 
 import {
   CurrentQuantity,

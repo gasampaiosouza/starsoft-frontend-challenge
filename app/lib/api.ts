@@ -13,6 +13,6 @@ export async function getProducts(limit = 12) {
 
     return data as IProducts;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

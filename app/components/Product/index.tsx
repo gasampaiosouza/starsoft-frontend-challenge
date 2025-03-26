@@ -1,6 +1,9 @@
 import Image from 'next/image';
 
 import EtherumLogo from '@/components/icons/etherum-logo';
+import { useAppDispatch } from '@/lib/hooks';
+import { addToCart } from '@/lib/features/cartSlice';
+import { IProduct } from '@/types/products';
 
 import {
   BuyButton,
@@ -11,9 +14,6 @@ import {
   ProductName,
   ProductPrice,
 } from './styles';
-import { useAppDispatch } from '@/lib/hooks';
-import { addToCart } from '@/lib/features/cartSlice';
-import { IProduct } from '@/types/products';
 
 type IProductProps = {
   product: IProduct;

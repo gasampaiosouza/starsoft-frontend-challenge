@@ -1,6 +1,7 @@
 import { ShowMoreButton } from '@/styles';
-import { Container, ProgressInner, ProgressOuter } from './styles';
 import { useAppSelector } from '@/lib/hooks';
+
+import { Container, ProgressInner, ProgressOuter } from './styles';
 
 interface IPaginationProps {
   limit: number;
@@ -13,9 +14,9 @@ const Pagination: React.FC<IPaginationProps> = ({ limit, changeLimit }) => {
   );
   const metadata = useAppSelector((state) => state.products.metadata);
 
-  // calc percentage
+  // calculate progress percentage
   const progress = metadata.count
-    ? Math.min((metadata.count ? limit / metadata.count : 0) * 100, 100) 
+    ? Math.min((metadata.count ? limit / metadata.count : 0) * 100, 100)
     : 0;
 
   function handleChangeLimit() {

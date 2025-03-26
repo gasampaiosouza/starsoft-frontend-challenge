@@ -25,8 +25,7 @@ describe('cart features', () => {
   it('should render the correct product quantity coming from the product', () => {
     render(<CartProduct product={product} />);
 
-    // Find the input field (CurrentQuantity)
-    const currentQuantityInput = screen.getByRole('textbox'); // Assuming it's a textbox input
+    const currentQuantityInput = screen.getByRole('textbox');
     expect(currentQuantityInput).toHaveValue(String(quantityToBeRendered));
   });
 });

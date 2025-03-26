@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from 'next';
-import { Poppins, IBM_Plex_Sans } from 'next/font/google';
-import Providers from './Providers';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import Template from './template';
+import { IBM_Plex_Sans, Poppins } from 'next/font/google';
+
 import { ToastContainer } from 'react-toastify';
+
+import Providers from './Providers';
+
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 
 const poppins = Poppins({
   variable: '--default-font',
@@ -65,7 +67,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} ${ibm_sans.variable}`}>
         <Providers>
           <Header />
-          <Template>{children}</Template>
+          {children}
 
           <ToastContainer
             stacked

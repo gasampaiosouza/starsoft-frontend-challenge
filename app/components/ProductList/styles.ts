@@ -1,9 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
-
 import { motion } from 'framer-motion';
-// import Loading from '@/components/icons/loading';
 
 export const Container = styled(motion.section)`
   margin-top: 289px; // 189px + fixed header size (100px)

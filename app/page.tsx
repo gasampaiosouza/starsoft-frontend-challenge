@@ -1,10 +1,11 @@
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+
 import ProductList from '@/components/ProductList';
 
 import { ContentContainer } from './styles';
 
 import { getProducts } from './lib/api';
 import { getQueryClient } from './lib/queryClient';
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 const Home = async () => {
   // this is the new `getServerSideProps` on app router (you guys mentioned it on the readme)
