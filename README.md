@@ -76,11 +76,11 @@ pnpm test
 
 For this project i did use:
 
-**Next.js** and **React Query:**
+***Next.js*** and ***React Query:***
 
 I choose next and react query because of their cache, performance and security abilities. When running an e-commerce that's the first thing you want to think about.
 
-**TypeScript**, **Styled Components** and **Redux:**
+***TypeScript***, ***Styled Components*** and ***Redux:***
 
 Typescript helps a lot when you have a big codebase. When we join it with styled components and redux, it helps even more!!
 
@@ -89,11 +89,11 @@ Styled components helps a lot when styling components that are already made like
 Redux makes a lot easier to manage states globally, it helps us to keep track of everything that is happening. States can be a big mess sometimes.
 
 
-**Framer Motion**
+***Framer Motion***
 
 I opted for framer motion because it's a lot easy to setup and run. Their animations are a lot clean right off the box, makes it a lot easier to work with.
 
-**Jest**, **Docker** and **Docker Compose:**
+***Jest***, ***Docker*** and ***Docker Compose:***
 
 Jest is awesome for testing!! no doubt it's the best one out there.
 
